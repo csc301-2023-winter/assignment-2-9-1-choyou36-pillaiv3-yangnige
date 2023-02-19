@@ -3,18 +3,22 @@ from rest_framework.generics import DestroyAPIView
 from rest_framework.response import Response
 from .serializers import HomeroomSerializer
 from accounts.models import PlayUser
+from rest_framework.permissions import IsAuthenticated
 from .models import homeroom
 import random
 
 
 class CreateRoomView(APIView):
+    permission_classes = [IsAuthenticated, ]
+
     def post(self, request):
         copy_data = request.data.copy()
         email = copy_data['email']
         Usr = PlayUser.objects.filter(email=email).first()
         if Usr.get_type() == "teacher":
-            homeroom_id = random.randint(10000000, 99999999)
-            copy_data['homeroom_id'] = homeroom_id
+            if copy_data['homeroom_id'] is None:
+                homeroom_id = random.randint(10000000, 99999999)
+                copy_data['homeroom_id'] = homeroom_id
             copy_data['teacher_id'] = email
             serializers = HomeroomSerializer(data=copy_data)
             serializers.is_valid(raise_exception=True)
@@ -24,6 +28,7 @@ class CreateRoomView(APIView):
             return Response("Must be a registered teacher")
 
 class JoinRoomView(APIView):
+    permission_classes = [IsAuthenticated, ]
 
     def post(self, request):
         copy_data = request.data.copy()
@@ -37,6 +42,8 @@ class JoinRoomView(APIView):
         return Response("Joined room: " + str(homeroom_id))
 
 class LeaveRoomView(APIView):
+    permission_classes = [IsAuthenticated, ]
+
     def post(self, request):
         copy_data = request.data.copy()
         email = copy_data['email']
@@ -50,6 +57,8 @@ class LeaveRoomView(APIView):
             return Response("Left room " + str(homeroom_id))
 
 class EndRoomView(DestroyAPIView):
+    permission_classes = [IsAuthenticated, ]
+
     serializer_class = HomeroomSerializer
     model = homeroom
 
