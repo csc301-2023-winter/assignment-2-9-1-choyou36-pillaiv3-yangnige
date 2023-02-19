@@ -1,22 +1,31 @@
 from rest_framework import serializers
-from models import PlayUser
+from .models import PlayUser
 
 
 class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+    password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
         model = PlayUser
-        fields = ('email', 'first_name', 'last_name', 'avatar', 'city',
-                  'country', 'age', 'grade', 'school', 'homeroom_id', 'type')
+        fields = ('email', 'password', 'password2', 'first_name', 'last_name', 'avatar', 'city',
+                  'country', 'age')
         lookup_field = 'email'
 
     def create(self, validated_data):
+        password = validated_data['password']
+        password2 = validated_data['password2']
+
+        if password != password2:
+            raise serializers.ValidationError({'password': 'Passwords do not match.'})
+        else:
+            validated_data.pop('password2')
+        
         user = super().create(validated_data)
         user.set_password(validated_data['password'])
         user.save()
         return user
-
+    
     def update(self, instance, validated_data):
         user = super().update(instance, validated_data)
         try:
@@ -26,17 +35,33 @@ class UserSerializer(serializers.ModelSerializer):
             pass
         return user
 
-
 class StudentSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+    password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
-        model = User
-        fields = ('email', 'first_name', 'last_name', 'avatar', 'city',
-                  'country', 'age', 'grade', 'school', 'homeroom_id')
+        model = PlayUser
+        fields = ('email', 'password', 'password2', 'first_name', 'last_name', 'avatar', 'city',
+                  'country', 'age', 'grade', 'school')
         lookup_field = 'email'
 
     def create(self, validated_data):
+        password = validated_data['password']
+        password2 = validated_data['password2']
+
+        validated_data['type'] = 'student'
+
+        if password != password2:
+            raise serializers.ValidationError({'password': 'Passwords do not match.'})
+        else:
+            validated_data.pop('password2')
+
+        if 'grade' not in validated_data:
+            raise serializers.ValidationError({'grade': 'This field is required.'})
+        
+        if 'school' not in validated_data:
+            raise serializers.ValidationError({'school': 'This field is required.'})
+        
         user = super().create(validated_data)
         user.set_password(validated_data['password'])
         user.save()
@@ -53,15 +78,29 @@ class StudentSerializer(serializers.ModelSerializer):
 
 
 class TeacherSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+    password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
-        model = User
-        fields = ('email', 'first_name', 'last_name', 'avatar', 'city',
+        model = PlayUser
+        fields = ('email', 'password', 'password2', 'first_name', 'last_name', 'avatar', 'city',
                   'country', 'age', 'school')
         lookup_field = 'email'
 
     def create(self, validated_data):
+        password = validated_data['password']
+        password2 = validated_data['password2']
+
+        validated_data['type'] = 'teacher'
+
+        if password != password2:
+            raise serializers.ValidationError({'password': 'Passwords do not match.'})
+        else:
+            validated_data.pop('password2')
+        
+        if 'school' not in validated_data:
+            raise serializers.ValidationError({'school': 'This field is required.'})
+        
         user = super().create(validated_data)
         user.set_password(validated_data['password'])
         user.save()
