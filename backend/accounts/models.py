@@ -1,11 +1,31 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, \
     BaseUserManager
-from django_countries.fields import CountryField
+from django.core.validators import RegexValidator
+
+TYPE_CHOICES = [
+    ("student", "student"),
+    ("teacher", "teacher"),
+]
 
 
 # Create your models here.
-class UserManager(BaseUserManager):
+class PlayUserManager(BaseUserManager):
+
+    def create_superuser(self, email, password, **other_fields):
+
+        other_fields.setdefault('is_staff', True)
+        other_fields.setdefault('is_superuser', True)
+        other_fields.setdefault('is_active', True)
+
+        if other_fields.get('is_staff') is not True:
+            raise ValueError(
+                'Superuser must be assigned to is_staff=True.')
+        if other_fields.get('is_superuser') is not True:
+            raise ValueError(
+                'Superuser must be assigned to is_superuser=True.')
+
+        return self.create_user(email, password, **other_fields)
 
     def create_user(self, email, password, **other_fields):
 
@@ -19,7 +39,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class PlayUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=150, unique=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -27,25 +47,21 @@ class User(AbstractBaseUser, PermissionsMixin):
                                null=True)
     city = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
-    age = models.IntegerField(max_length=3)
-
+    age = models.CharField(max_length=10, validators=[RegexValidator(r'^[1-9][0-9]?$|^100$')], blank=True,
+                           null=True)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    grade = models.CharField(max_length=10, validators=[RegexValidator(r'0[1-9]|1[0-2]')],
+                             blank=True, null=True)
+    school = models.CharField(max_length=150, blank=True, null=True)
+    homeroom_id = models.CharField(max_length=150, blank=True, null=True)
+    type = models.CharField(max_length=150, choices=TYPE_CHOICES, blank=True, null=True)
+    objects = PlayUserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email
 
-
-class Student(User):
-    grade = models.IntegerField(max_length=2)
-    school = models.CharField(max_length=150)
-    homeroom_id = models.CharField(max_length=150)
-
-
-class Teacher(User):
-    school = models.CharField(max_length=150)
-
-
-class homeroom_id(AbstractBaseUser, PermissionsMixin):
-    homeroom_id = models.CharField(max_length=150)
-    teacher_id = models.CharField(max_length=150)
+    def get_type(self):
+        return self.type

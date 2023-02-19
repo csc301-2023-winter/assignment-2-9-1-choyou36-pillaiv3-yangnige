@@ -1,14 +1,14 @@
 from rest_framework import serializers
-from models import User, Student, Teacher
+from models import PlayUser
 
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
-        model = User
+        model = PlayUser
         fields = ('email', 'first_name', 'last_name', 'avatar', 'city',
-                  'country', 'age')
+                  'country', 'age', 'grade', 'school', 'homeroom_id', 'type')
         lookup_field = 'email'
 
     def create(self, validated_data):
