@@ -47,11 +47,11 @@ class PlayUser(AbstractBaseUser, PermissionsMixin):
                                null=True)
     city = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
-    age = models.CharField(max_length=10, validators=[RegexValidator(r'^[1-9]?$|^10$|^11$|^12$')], blank=True,
+    age = models.CharField(max_length=10, validators=[RegexValidator(r'[1-100]')], blank=True,
                            null=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    grade = models.CharField(max_length=10, validators=[RegexValidator(r'0[1-9]|1[0-2]')],
+    grade = models.CharField(max_length=10, validators=[RegexValidator(r'^[1-9]?$|^10$|^11$|^12$')],
                              blank=True, null=True)
     school = models.CharField(max_length=150, blank=True, null=True)
     homeroom_id = models.CharField(max_length=150, blank=True, null=True)
