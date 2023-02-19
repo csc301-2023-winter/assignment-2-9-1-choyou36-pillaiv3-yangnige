@@ -47,7 +47,7 @@ class PlayUser(AbstractBaseUser, PermissionsMixin):
                                null=True)
     city = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
-    age = models.CharField(max_length=10, validators=[RegexValidator(r'^[1-9][0-9]?$|^100$')], blank=True,
+    age = models.CharField(max_length=10, validators=[RegexValidator(r'^[1-9]?$|^10$|^11$|^12$')], blank=True,
                            null=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
