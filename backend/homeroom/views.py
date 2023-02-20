@@ -34,9 +34,11 @@ class JoinRoomView(APIView):
         copy_data = request.data.copy()
         if 'homeroom_id' not in copy_data:
             return Response("Please enter a room id", status=400)
+        
         homeroom_id = copy_data['homeroom_id']
-        if homeroom.objects.get(homeroom_id = homeroom_id) is None:
+        if homeroom.objects.filter(homeroom_id = homeroom_id).first() is None:
             return Response("Enter a valid room id", status=400)
+        
         request.user.homeroom_id = homeroom_id
         request.user.save()
         return Response("Joined room: " + str(homeroom_id))
