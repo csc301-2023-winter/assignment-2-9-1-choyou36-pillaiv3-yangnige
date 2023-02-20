@@ -9,7 +9,7 @@ class HomeroomManager(models.Manager):
 
 # Create your models here.
 class homeroom(models.Model):
-    homeroom_id = models.IntegerField(validators=[RegexValidator(r'^\d{8}$')])
+    homeroom_id = models.IntegerField(validators=[RegexValidator(r'^\d{8}$')], unique=True)
     teacher_id = models.CharField(max_length=150)
     objects = HomeroomManager()
 
