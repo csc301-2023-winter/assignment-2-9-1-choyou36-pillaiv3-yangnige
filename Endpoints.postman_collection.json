@@ -1,0 +1,439 @@
+{
+	"info": {
+		"_postman_id": "4c9e7ed8-702a-4c67-b83a-a9bfc9a67787",
+		"name": "Endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25835950"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "teacher4@mail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://csc301-a2-production.up.railway.app/accounts/login/",
+					"protocol": "https",
+					"host": [
+						"csc301-a2-production",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"accounts",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register default user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "user@mail.com",
+							"type": "text"
+						},
+						{
+							"key": "first_name",
+							"value": "Youngjun",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": "Cho",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "text"
+						},
+						{
+							"key": "password2",
+							"value": "123",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Toronto",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "Canada",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "student",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://csc301-a2-production.up.railway.app/accounts/register-user/",
+					"protocol": "https",
+					"host": [
+						"csc301-a2-production",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"accounts",
+						"register-user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register student",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "student@mail.com",
+							"type": "text"
+						},
+						{
+							"key": "first_name",
+							"value": "first",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": "last",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "text"
+						},
+						{
+							"key": "password2",
+							"value": "123"
+						},
+						{
+							"key": "age",
+							"value": "18",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Toronto",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "Canada",
+							"type": "text"
+						},
+						{
+							"key": "grade",
+							"value": "12",
+							"type": "text"
+						},
+						{
+							"key": "school",
+							"value": "Toronto High School",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://csc301-a2-production.up.railway.app/accounts/register-student/",
+					"protocol": "https",
+					"host": [
+						"csc301-a2-production",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"accounts",
+						"register-student",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register teacher",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "teacher@mail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "text"
+						},
+						{
+							"key": "password2",
+							"value": "123",
+							"type": "text"
+						},
+						{
+							"key": "first_name",
+							"value": "teacher_first",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": "teacher_last",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Toronto",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "Canada",
+							"type": "text"
+						},
+						{
+							"key": "school",
+							"value": "Toronto High School",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://csc301-a2-production.up.railway.app/accounts/register-teacher/",
+					"protocol": "https",
+					"host": [
+						"csc301-a2-production",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"accounts",
+						"register-teacher",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Homeroom",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "homeroom_id",
+							"value": "30002000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://csc301-a2-production.up.railway.app/homeroom/create-room/",
+					"protocol": "https",
+					"host": [
+						"csc301-a2-production",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"homeroom",
+						"create-room",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Join Homeroom",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "homeroom_id",
+							"value": "30002000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://csc301-a2-production.up.railway.app/homeroom/join-room/",
+					"protocol": "https",
+					"host": [
+						"csc301-a2-production",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"homeroom",
+						"join-room",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Leave Homeroom",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://csc301-a2-production.up.railway.app/homeroom/leave-room/",
+					"protocol": "https",
+					"host": [
+						"csc301-a2-production",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"homeroom",
+						"leave-room",
+						""
+					],
+					"query": [
+						{
+							"key": null,
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "End Homeroom",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "homeroom_id",
+							"value": "30002000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://csc301-a2-production.up.railway.app/homeroom/end-room/",
+					"protocol": "https",
+					"host": [
+						"csc301-a2-production",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"homeroom",
+						"end-room",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
