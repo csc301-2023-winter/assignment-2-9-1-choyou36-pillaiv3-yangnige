@@ -14,7 +14,7 @@ class CreateRoomView(APIView):
     def post(self, request):
         copy_data = request.data.copy()
         if request.user.get_type() == "teacher":
-            if copy_data['homeroom_id'] is None:
+            if 'homeroom_id' not in copy_data:
                 homeroom_id = random.randint(10000000, 99999999)
                 copy_data['homeroom_id'] = homeroom_id
             elif homeroom.objects.filter(homeroom_id=copy_data['homeroom_id']).first() is not None:
